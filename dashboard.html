@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Lý Linh Ấn</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="title-gold">Quản Lý Linh Ấn</h1>
+            <p class="subtitle">Danh sách các trang đã được tạo</p>
+        </div>
+
+        <div class="dashboard-actions">
+            <button id="create-new-btn" class="btn-gold-style">Tạo Trang Mới</button>
+        </div>
+
+        <div id="page-list-container">
+            <!-- Danh sách các trang sẽ được JS chèn vào đây -->
+            <div id="loading-state">Đang tải danh sách...</div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

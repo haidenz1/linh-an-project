@@ -1,0 +1,1118 @@
+/*
+ * @file style.css
+ * @description Toàn bộ CSS cho dự án "Linh Ấn".
+ * @version 1.1.0
+ * @date 2026-08-12
+ *
+ * MỤC LỤC:
+ * 1.  CÀI ĐẶT CHUNG & FONT
+ * 2.  BỐ CỤC CHÍNH (SNAP SCROLL & PAGES)
+ * 3.  TRANG 1: KHAI ẤN (LANDING)
+ * 4.  TRANG 2: TRANG CHỦ (HOME)
+ * 5.  HIỆU ỨNG CHUYỂN CẢNH (HOA SEN OVERLAY)
+ * 6.  KEYFRAMES & ANIMATIONS CHUNG
+ * 7.  MODEL 3D TOÀN CỤC (GLOBAL)
+ * 8.  TRANG 3: Ý NGHĨA LINH ẤN
+ * 9.  TRANG 4: CHI TIẾT TẠO RIÊNG (CALLOUTS)
+ * 10. TRANG 5: LÁ BÀI & CTA
+ */
+
+/* =========================================================
+   1. CÀI ĐẶT CHUNG & FONT
+   ========================================================= */
+@font-face {
+    font-family: 'UTM Alexander';
+    src: url('font/UTM-Alexander.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'UTM Alexander', 'Times New Roman', serif;
+    background-color: #0a0806; 
+    color: #fff;
+    overflow: hidden; 
+}
+
+/* =========================================================
+   2. BỐ CỤC CHÍNH (SNAP SCROLL & PAGES)
+   ========================================================= */
+.snap-container { /* Container chính cho phép cuộn dọc */
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+.page {
+    height: 100vh; /* Mỗi trang chiếm toàn bộ chiều cao màn hình */
+    width: 100vw;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.content { /* Lớp bọc nội dung chính trong mỗi trang */
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 18vh 0 10vh 0; 
+}
+
+/* =========================================================
+   3. TRANG 1: KHAI ẤN (LANDING)
+   ========================================================= */   
+#page-1 {
+    background-image: 
+        radial-gradient(circle at 50% 28%, rgba(10, 8, 6, 0) 0%, rgba(10, 8, 6, 0.8) 40%, rgba(10, 8, 6, 1) 65%),
+        url('img/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main-logo {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 25px; 
+    opacity: 0; /* Cho hiệu ứng xuất hiện */
+    animation: 
+        fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards,
+        radiateGlow 3s ease-in-out 1s infinite;
+}
+
+.title-gold {
+    font-size: 40px;
+    letter-spacing: 2px;
+    background: linear-gradient(to bottom, #E8C875, #B08935);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+.id-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%; 
+    margin: 0 auto;
+}
+
+.divider-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #C49A45, transparent);
+    opacity: 0.6;
+    margin: 8px 0; 
+}
+
+.id-text {
+    color: #D9B35A;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin: 4px 0; 
+}
+
+.subtitle {
+    color: #bfae99;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 25px; 
+}
+
+/* --- Nút Bấm Khai Ấn --- */
+.bottom-action {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.btn-khai-an-img {
+    width: 280px; 
+    height: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 15px rgba(196, 154, 69, 0.4));
+}
+
+.btn-khai-an-img:active {
+    transform: scale(0.95);
+    filter: drop-shadow(0 2px 5px rgba(196, 154, 69, 0.4));
+}
+
+/* =========================================================
+   4. TRANG 2: TRANG CHỦ (HOME)
+   ========================================================= */
+.greeting-small {
+    font-size: 16px;
+    color: #C49A45;
+}
+
+.greeting-name {
+    font-size: 42px;
+    background: linear-gradient(to right, #C49A45, #F9E29C, #C49A45);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Times New Roman', serif; /* Override cho tên nếu cần */
+}
+
+/* --- Nút và Bảng Thông Tin Cấu Hình --- */
+.badge-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Biến nút thành dạng bấm được */
+button.badge-gold {
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+button.badge-gold:hover {
+    background: rgba(196, 154, 69, 0.1);
+}
+
+button.badge-gold:active {
+    transform: scale(0.95);
+}
+
+/* Bảng thông tin (Mặc định ẩn) */
+.info-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    /* Bắt đầu ở trạng thái co lại và đẩy lên một chút */
+    transform: translateX(-50%) translateY(-15px) scaleY(0.8); 
+    transform-origin: top center;
+    width: 290px;
+    background: rgba(15, 11, 7, 0.95); /* Nền tối mờ */
+    border: 1px solid #3a2a18;
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    
+    /* Trạng thái ẩn */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    /* Cubic-bezier tạo hiệu ứng "nảy" khi bung ra */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15); 
+}
+
+/* Trạng thái hiện (được JS kích hoạt) */
+.info-panel.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scaleY(1);
+}
+
+/* Chi tiết từng dòng trong bảng */
+.info-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.info-icon {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #6b5329;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: #C49A45;
+    background: rgba(196, 154, 69, 0.05);
+    flex-shrink: 0;
+}
+
+.info-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.info-label {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #a0958a;
+    margin-bottom: 2px;
+}
+
+.info-val {
+    font-family: 'UTM Alexander', serif;
+    font-size: 16px;
+    color: #E8C875;
+    letter-spacing: 0.5px;
+}
+
+.info-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(196, 154, 69, 0.2), transparent);
+}
+
+.badge-gold {
+    border: 1px solid #C49A45;
+    color: #F9E29C;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.mascot-box {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mascot-placeholder {
+    font-size: 80px;
+    animation: float 3s ease-in-out infinite; 
+}
+
+.bottom-text {
+    font-family: Arial, sans-serif;
+    color: #a0958a;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 30px;
+}
+
+.scroll-indicator {
+    margin-top: auto;
+    animation: bounce 2s infinite;
+}
+
+/* =========================================================
+   5. HIỆU ỨNG CHUYỂN CẢNH (HOA SEN OVERLAY)
+   ========================================================= */
+#lotus-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Không cho phép click xuyên qua overlay */
+    pointer-events: none; 
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#lotus-overlay.hidden {
+    display: none;
+}
+
+/* Khi active, overlay hiện ra và các animation con bắt đầu chạy */
+#lotus-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.glow-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(196,154,69,0.8) 0%, rgba(10,8,6,0.9) 70%);
+    opacity: 0;
+}
+
+.lotus-svg {
+    width: 100px;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    transform: scale(0);
+}
+
+#lotus-overlay.active .glow-bg { animation: explodeGlow 1.5s forwards; }
+#lotus-overlay.active .lotus-svg { animation: bloomLotus 1.5s forwards; }
+
+/* =========================================================
+   6. KEYFRAMES & ANIMATIONS CHUNG
+   ========================================================= */
+
+/* Hiệu ứng xuất hiện lần lượt (stagger) cho các phần tử ở Trang 1 */
+.main-logo, .title-gold, .id-wrapper, .subtitle, .bottom-action {
+    opacity: 0; 
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+}
+
+.title-gold { animation-delay: 0.5s; }
+.id-wrapper { animation-delay: 0.7s; }
+.subtitle { animation-delay: 0.9s; }
+.bottom-action { animation-delay: 1.2s; }
+
+/* --- Định nghĩa các kịch bản chuyển động --- */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes radiateGlow {
+    0% { filter: drop-shadow(0 0 15px rgba(196, 154, 69, 0.3)); }
+    50% { filter: drop-shadow(0 0 45px rgba(196, 154, 69, 0.9)); }
+    100% { filter: drop-shadow(0 0 15px rgba(196, 154, 69, 0.3)); }
+}
+
+@keyframes explodeGlow {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes bloomLotus {
+    0% { transform: scale(0) rotate(-45deg); opacity: 0; filter: drop-shadow(0 0 0px #F9E29C); }
+    50% { transform: scale(3) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 30px #F9E29C); }
+    100% { transform: scale(5) rotate(20deg); opacity: 0; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(10px); }
+    60% { transform: translateY(5px); }
+}
+
+/* =========================================================
+   7. MODEL 3D TOÀN CỤC (GLOBAL)
+   ========================================================= */
+#global-model-container {
+    position: fixed;
+    z-index: 50; 
+    pointer-events: none; /* Cho phép click/scroll xuyên qua container */
+    /*
+     * QUAN TRỌNG: Không có 'transition' ở đây.
+     * Toàn bộ animation (top, left, scale...) được điều khiển trực tiếp
+     * bởi JavaScript thông qua inline style mỗi khi cuộn, tạo ra hiệu ứng
+     * "scrubbing" mượt mà, bám dính 100% vào thao tác của người dùng.
+     */
+}
+
+#global-model-container model-viewer {
+    pointer-events: auto; /* Riêng model-viewer thì vẫn cho phép tương tác (xoay,...) */
+}
+
+/* =========================================================
+   8. TRANG 3: Ý NGHĨA LINH ẤN
+   ========================================================= */
+#page-3 {
+    display: block; 
+    overflow-y: auto; /* Cho phép cuộn nội dung bên trong trang 3 */
+}
+
+.p3-content {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 6vh 0 10vh 0;
+}
+
+/* --- Thanh điều hướng đầu trang --- */
+.p3-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #bfae99;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 3vh;
+}
+
+.p3-nav-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.p3-nav-title .ornament {
+    color: #C49A45;
+    font-family: serif;
+    font-size: 18px;
+}
+
+/* --- Header chính của trang --- */
+.p3-header {
+    margin-bottom: 4vh;
+}
+
+.p3-title {
+    font-size: 46px;
+    margin-bottom: 5px;
+}
+
+.p3-subtitle-italic {
+    color: #bfae99;
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: italic;
+    font-family: 'Times New Roman', serif;
+}
+
+.p3-paragraph-small {
+    color: #8c8277;
+    font-size: 11px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    text-align: justify;
+}
+
+/* --- Box "Ba Dấu Ý" --- */
+.p3-bordered-section {
+    border: 1px solid rgba(196, 154, 69, 0.3);
+    border-radius: 12px;
+    padding: 20px 15px;
+    margin-top: 40px;
+    background: rgba(196, 154, 69, 0.02);
+}
+
+.p3-bordered-section .p3-divider-text {
+    margin-top: -30px; /* Kéo title đè lên đường viền */
+    margin-bottom: 25px;
+}
+
+.p3-bordered-section .p3-divider-text span {
+    background: #0a0806; /* Màu nền trùng với body để che viền đi */
+}
+
+/* --- Timeline List (Đường kẻ kết nối) --- */
+.custom-timeline-icon { /* Icon riêng cho từng mục trong timeline */
+    width: 80px; /* Tăng mạnh từ 24px lên 40px để lấp đầy vòng tròn */
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(196, 154, 69, 0.4));
+}
+.p3-timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Vẽ đường kẻ nét đứt chạy dọc */
+.p3-timeline-list::before {
+    content: '';
+    position: absolute;
+    left: 23px; /* Căn giữa icon 46px */
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, transparent, transparent 4px, rgba(196, 154, 69, 0.5) 4px, rgba(196, 154, 69, 0.5) 8px);
+    z-index: 0;
+}
+
+.p3-timeline-item {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.p3-timeline-icon {
+    background: #0a0806; /* Xóa đường line chìm dưới icon */
+    padding: 5px 0;
+    margin-right: 15px;
+}
+
+.icon-circle-placeholder {
+    width: 46px;
+    height: 46px;
+    border: 1px solid #C49A45;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    background: radial-gradient(circle, rgba(196, 154, 69, 0.2) 0%, transparent 80%);
+    box-shadow: 0 0 10px rgba(196, 154, 69, 0.2);
+}
+
+.p3-timeline-text h3 {
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 15px;
+    margin-bottom: 4px;
+    margin-top: 5px;
+}
+
+.p3-timeline-text p {
+    color: #a0958a;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* --- Các thành phần dùng chung --- */
+.p3-divider-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.p3-divider-text::before,
+.p3-divider-text::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(196, 154, 69, 0.3);
+}
+
+.p3-divider-text span {
+    padding: 0 15px;
+}
+
+.p3-paragraph {
+    color: #a0958a;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+
+
+/* --- Box "Dành Riêng" (Viền kép) --- */
+.p3-special-box {
+    border-radius: 6px;
+    padding: 25px 15px;
+    display: flex;
+    align-items: flex-start; /* Cho icon nằm lên trên cùng */
+    margin-bottom: 20px;
+}
+
+/* TỤ TÀI • GIỮ LỘC • HANH THÔNG */
+.p3-red-subtitle {
+    color: #d15632; /* Đỏ cam trầm phong thủy */
+    text-align: center;
+    font-family: 'UTM Alexander', serif;
+    font-size: 13px;
+    letter-spacing: 4px; /* Dãn chữ rộng ra tạo cảm giác thoáng, sang */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+/* Box "Dành Riêng" (Nền chuyển sắc sâu) */
+.p3-special-box.red-bordered {
+    border: 1px solid rgba(196, 154, 69, 0.4);
+    background: linear-gradient(135deg, rgba(46, 15, 12, 0.8) 0%, rgba(10, 8, 6, 0.95) 100%);
+    position: relative;
+    padding: 25px 20px;
+    display: flex;
+    align-items: center; /* Căn icon và text đều nhau theo chiều dọc */
+    gap: 20px; /* Đẩy chữ cách xa icon ra một khoảng đẹp mắt */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(122, 43, 37, 0.1);
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+/* Lớp viền mỏng bên trong hộp */
+.p3-special-box.red-bordered::before {
+    content: '';
+    position: absolute;
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border: 1px solid rgba(196, 154, 69, 0.15);
+    pointer-events: none;
+}
+
+/* Vẽ 4 góc mạ vàng vuông vức bằng CSS Gradient */
+.p3-special-box.red-bordered::after {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    background:
+        linear-gradient(to right, #C49A45 2px, transparent 2px) 0 0,
+        linear-gradient(to bottom, #C49A45 2px, transparent 2px) 0 0,
+        linear-gradient(to left, #C49A45 2px, transparent 2px) 100% 0,
+        linear-gradient(to bottom, #C49A45 2px, transparent 2px) 100% 0,
+        linear-gradient(to right, #C49A45 2px, transparent 2px) 0 100%,
+        linear-gradient(to top, #C49A45 2px, transparent 2px) 0 100%,
+        linear-gradient(to left, #C49A45 2px, transparent 2px) 100% 100%,
+        linear-gradient(to top, #C49A45 2px, transparent 2px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    pointer-events: none;
+}
+
+/* Ấn triện (Seal Icon) */
+.seal-icon-wrapper {
+    width: 75px;
+    height: 75px;
+    border: 1px dashed rgba(196, 154, 69, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    flex-shrink: 0; /* Khóa kích thước, không bị méo khi text quá dài */
+    background: rgba(196, 154, 69, 0.05);
+}
+
+.seal-icon-inner {
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid #C49A45;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    background: radial-gradient(circle, rgba(196, 154, 69, 0.2) 0%, transparent 70%);
+    box-shadow: inset 0 0 10px rgba(196, 154, 69, 0.3);
+}
+
+/* Text bên trong */
+.box-title-gold {
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.p3-sub-info {
+    color: #C49A45;
+    font-family: 'UTM Alexander', serif;
+    font-size: 11px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+.p3-box-text {
+    color: #a0958a;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.p3-sub-info {
+    color: #C49A45;
+    font-family: 'UTM Alexander', serif;
+    font-size: 11px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+.p3-box-content p {
+    color: #a0958a;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Lời chúc lớn ở cuối */
+.p3-big-wishes {
+    text-align: center;
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 19px;
+    line-height: 1.5;
+    text-shadow: 0 0 10px rgba(196, 154, 69, 0.2);
+}
+/* =========================================================
+   9. TRANG 4: CHI TIẾT TẠO RIÊNG (CALLOUTS) - HIỆN ĐANG ẨN
+   ========================================================= */   
+#page-4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p4-content {
+    width: 100%;
+    max-width: 500px;
+    padding: 6vh 4% 6vh 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+}
+
+.p4-header {
+    text-align: center;
+    z-index: 60;
+}
+
+.p4-title-small {
+    font-family: 'Times New Roman', serif;
+    color: #E8C875;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.p4-title-gold {
+    font-family: 'Times New Roman', serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    background: linear-gradient(to bottom, #E8C875, #B08935);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.p4-divider-ornament {
+    margin: 10px 0;
+    opacity: 0.7;
+}
+
+/* --- Layout Lưới 3 cột cho các chú thích --- */
+.p4-callout-grid {
+    display: grid;
+    /* Quy định rõ từng khu vực để không bị xô lệch */
+    grid-template-areas: 
+        "L1 C R1"
+        "L2 C R2"
+        "L3 C R3";
+    grid-template-columns: 1fr 100px 1fr; /* Cột giữa rộng 100px làm khoảng trống */
+    row-gap: 30px;
+    align-items: center;
+    width: 100%;
+    z-index: 60;
+    margin: auto 0;
+}
+
+.p4-center-model {
+    width: 280px; /* Rộng hơn cột grid để đè lên các đường line */
+    height: 400px;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1; /* Đẩy ra sau để các dấu chấm sáng trỏ lên trên thân tượng */
+}
+
+.callout-box {
+    border: 1px solid rgba(196, 154, 69, 0.4);
+    border-radius: 8px;
+    padding: 12px 6px;
+    text-align: center;
+    background: rgba(10, 8, 6, 0.6);
+    backdrop-filter: blur(4px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Đưa item vào cột trái/phải */
+.callout-box.left { grid-column: 1; }
+.callout-box.right { grid-column: 3; }
+
+.callout-icon {
+    width: 36px; height: 36px;
+    border: 1px solid #C49A45;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    margin-bottom: 6px;
+    color: #E8C875;
+}
+
+.callout-box h4 {
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.callout-box p {
+    color: #a0958a;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+/* --- Vẽ đường kẻ và chấm sáng chỉ vào tượng 3D bằng pseudo-elements --- */
+.callout-box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 25px; /* Độ dài đường line */
+    height: 1px;
+    background: #C49A45;
+    box-shadow: 0 0 5px #C49A45;
+}
+/* Dấu chấm phát sáng ở đầu đường kẻ */
+.callout-box::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 4px; height: 4px;
+    background: #F9E29C;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #F9E29C;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+/* Line cho hộp bên Trái đâm sang phải */
+.callout-box.left::after { right: -25px; }
+.callout-box.left::before { right: -27px; }
+
+/* Line cho hộp bên Phải đâm sang trái */
+.callout-box.right::after { left: -25px; }
+.callout-box.right::before { left: -27px; }
+
+/* --- Footer Trang 4 --- */
+.p4-footer {
+    text-align: center;
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 14px;
+    z-index: 60;
+}
+
+/* =========================================================
+   10. TRANG 5: LÁ BÀI & CTA
+   ========================================================= */   
+.p5-content {
+    justify-content: center;
+}
+
+/* --- Cấu trúc 3 lớp cho Animation Lá Bài --- */
+
+/* Lớp 1: Card Scene (Tạo không gian 3D và điều khiển animation bay vào) */
+.card-scene {
+    width: 260px; /* Bạn có thể giữ 260px hoặc tăng lên 280px tùy thích */
+    aspect-ratio: 508 / 921; /* Khóa cứng theo tỉ lệ ảnh lá bài */
+    height: auto;
+    perspective: 1200px; /* Tạo chiều sâu cho hiệu ứng 3D */
+    margin: 3vh auto; /* Giảm margin một chút vì lá bài bây giờ sẽ dài hơn */
+    opacity: 0; 
+}
+
+/* Lớp bọc tạo hiệu ứng trôi/lắc lư (Idle Animation) chạy vô hạn */
+.card-wrapper {
+    width: 100%;
+    height: 100%;
+    animation: idleWiggle 5s ease-in-out infinite;
+}
+
+/* Lớp 3: Thân Lá Bài (Thực hiện hiệu ứng lật 180 độ) */
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /* transform-style: preserve-3d; giúp các phần tử con giữ vị trí 3D của chúng */
+    transform-style: preserve-3d; 
+    cursor: pointer;
+    /* Transition mặc định dùng cho lúc click lật bài */
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Định dạng 2 mặt lá bài */
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* backface-visibility: ẩn mặt sau của một element khi nó bị quay đi */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    border: 2px solid #C49A45;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(196, 154, 69, 0.3);
+    overflow: hidden;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* Giao diện giữ chỗ (Placeholder) */
+.card-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #E8C875;
+    font-family: 'UTM Alexander', serif;
+    font-size: 24px;
+    background: repeating-linear-gradient(45deg, #1a140d, #1a140d 10px, #241c12 10px, #241c12 20px);
+}
+
+.card-placeholder.back {
+    background: radial-gradient(circle, #241c12 0%, #0a0806 100%);
+    color: #fff;
+}
+
+/* --- Các trạng thái Animation của Lá Bài (điều khiển bởi JS) --- */
+/* TRẠNG THÁI 1: BAY VÀO (JS thêm class .show) */
+.card-scene.show {
+    /* Chạy 2s, Trễ 0.5s, 'both' giúp màn hình giữ nguyên sự trống trải trong 0.5s chờ */
+    animation: sceneEntrance 2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.card-scene.show .card {
+    /* Lật 3 vòng liên tục (1080 độ) */
+    animation: cardSpinEntrance 2s ease-out 0.5s both;
+}
+
+/* TRẠNG THÁI 2: ĐÃ ĐÁP XUỐNG SẴN SÀNG (JS thêm class .ready) */
+.card-scene.ready {
+    /* Cố định ở trạng thái cuối cùng của animation 'sceneEntrance' */
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Khi lá bài đã "sẵn sàng", class .flipped sẽ kích hoạt hiệu ứng lật */
+.card-scene.ready .card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* --- Định nghĩa các Keyframes cho Lá Bài --- */
+
+/* Kịch bản: Bay từ dưới lên (Vẫn nhỏ) -> Lên giữa -> Phóng to */
+@keyframes sceneEntrance {
+    0% { 
+        opacity: 0; 
+        transform: translateY(80vh) scale(0.2); 
+    }
+    10% { 
+        opacity: 1; 
+    }
+    65% { 
+        transform: translateY(0) scale(0.4); 
+        /* Tới mốc 65% thời gian, bài đã lên giữa màn hình nhưng vẫn còn nhỏ */
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+        /* Cú bung nở chốt hạ */
+    }
+}
+
+/* Kịch bản: Lật 3 vòng tròn */
+@keyframes cardSpinEntrance {
+    0% { transform: rotateY(-1080deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+/* Kịch bản: Lắc lư tự do (Idle) */
+@keyframes idleWiggle {
+    0%, 100% { transform: translateY(0) rotateZ(0deg) rotateY(0deg); }
+    25% { transform: translateY(-8px) rotateZ(-1deg) rotateY(-4deg); }
+    50% { transform: translateY(0px) rotateZ(0deg) rotateY(0deg); }
+    75% { transform: translateY(8px) rotateZ(1deg) rotateY(4deg); }
+}
+
+/* --- Nút Gieo Duyên và Hiệu ứng Hào quang --- */
+.p5-action-box {
+    margin-top: 3vh; /* Đẩy xuống một chút để có không gian tỏa hào quang */
+    z-index: 50;
+    opacity: 0; 
+    pointer-events: none; 
+    transform: translateY(20px); 
+    /* Nút chỉ hiện lên khi lá bài đã ở trạng thái 'ready' */
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s; 
+}
+
+.card-scene.ready ~ .p5-action-box {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+#btn-gieo-duyen {
+    position: relative;
+    background: linear-gradient(to bottom, #D9B35A 0%, #9C7221 100%);
+    color: #1A1105;
+    border: 2px solid #F9E29C;
+    border-radius: 40px; 
+    padding: 16px 60px;
+    font-family: 'UTM Alexander', serif;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 20px rgba(196, 154, 69, 0.8);
+}
+
+/* Lớp viền số 1: Vòng chỉ vàng liền nét ôm sát nút */
+#btn-gieo-duyen::before {
+    content: '';
+    position: absolute;
+    top: -6px; 
+    left: -6px; 
+    right: -6px; 
+    bottom: -6px;
+    border: 1px solid #E8C875;
+    border-radius: 46px; /* Bo góc lớn hơn nút một chút */
+    pointer-events: none;
+}
+
+/* Lớp viền số 2: Vòng hào quang nét đứt phát sáng bên ngoài */
+#btn-gieo-duyen::after {
+    content: '';
+    position: absolute;
+    top: -12px; 
+    left: -12px; 
+    right: -12px; 
+    bottom: -12px;
+    border: 1px dashed rgba(196, 154, 69, 0.6);
+    border-radius: 52px;
+    pointer-events: none;
+    box-shadow: inset 0 0 10px rgba(196, 154, 69, 0.3), 0 0 25px rgba(196, 154, 69, 0.6);
+}
+
+/* Hiệu ứng nhấn nút: toàn bộ khung co lại nhẹ nhàng */
+#btn-gieo-duyen:active,
+#btn-gieo-duyen:active::before,
+#btn-gieo-duyen:active::after {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* Tinh chỉnh lại khoảng cách cho scroll indicator ở trang 5 */
+.p5-content .scroll-indicator {
+    margin-top: 3vh !important; /* Dùng !important để ghi đè style chung */
+}
+
+/* --- Hình ảnh Lá bài --- */
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo ảnh phủ kín khung */
+    border-radius: 14px; /* Trừ hao một chút so với khung 16px để không lẹm viền */
+    display: block; /* Xóa khoảng trống thừa dưới đáy ảnh */
+}

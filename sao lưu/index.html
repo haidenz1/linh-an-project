@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Linh Ấn</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Tải trước file 3D ngầm trong lúc người dùng ở trang 1 -->
+    <link rel="preload" href="3d/than.glb" as="fetch" crossorigin="anonymous">
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <!-- =========================================================
+         GLOBAL ELEMENTS (Nằm ngoài luồng cuộn chính)
+         ========================================================= -->
+
+    <!-- GLOBAL 3D MODEL CONTAINER: Luôn nổi trên các trang, được điều khiển bởi JS -->
+    <div id="global-model-container" class="model-state-1">
+        <model-viewer
+            src="3d/than.glb" 
+            alt="Linh Ấn Tài Lộc Nhâm Thân"
+            loading="eager"
+            camera-controls
+            disable-zoom
+            disable-pan
+            min-camera-orbit="auto 90deg auto"
+            max-camera-orbit="auto 90deg auto"
+            auto-rotate
+            rotation-per-second="15deg"
+            environment-image="neutral"
+            exposure="1.2"
+            shadow-intensity="1.5"
+            shadow-softness="1"
+            style="width: 100%; height: 100%; outline: none;"
+        ></model-viewer>
+    </div>
+
+    <!-- Overlay Hiệu ứng hoa sen (Ẩn mặc định) -->
+    <div id="lotus-overlay" class="hidden">
+        <div class="glow-bg"></div>
+        <img src="img/hoasen.png" class="lotus-svg" alt="Hoa Sen">
+    </div>
+
+    <!-- CONTAINER CUỘN CHÍNH: Chứa tất cả 5 màn hình -->
+    <div class="snap-container" id="scroll-container">
+        
+        <!-- =========================================================
+             MÀN HÌNH 1: KHAI ẤN (LANDING PAGE)
+             ========================================================= -->
+        <section class="page" id="page-1">
+            <div class="content">
+                <div class="logo-box">
+                    <img src="img/thanlogo.png" class="main-logo" alt="Logo Linh Ấn">
+                </div>
+                
+                <h1 class="title-gold">LINH ẤN</h1>
+
+                <!-- Cụm ID có 2 đường kẻ ngang -->
+                <div class="id-wrapper">
+                    <div class="divider-line"></div>
+                    <p class="id-text">#THAN-1992-0182</p>
+                    <div class="divider-line"></div>
+                </div>
+
+                <p class="subtitle">Một Linh Ấn đang chờ<br>được khai mở</p>
+                
+                <div class="bottom-action">
+                    <img src="img/khaian.png" id="btn-khai-an" class="btn-khai-an-img" alt="Khai Ấn">
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             MÀN HÌNH 2: TRANG CHỦ (GREETING & MASCOT)
+             ========================================================= -->
+        <section class="page" id="page-2">
+            <div class="content">
+                <p class="greeting-small">Xin chào</p>
+                <h1 class="greeting-name">MINH</h1>
+                
+                <!-- Cụm Nút và Bảng thông tin sổ xuống -->
+                <div class="badge-wrapper" style="position: relative; z-index: 100;">
+                    <button class="badge-gold" id="btn-info-panel">LINH ẤN TÀI LỘC</button>
+                    
+                    <div class="info-panel" id="info-panel">
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Tên sở hữu</span>
+                                <span class="info-val">Minh</span>
+                            </div>
+                        </div>
+                        <div class="info-divider"></div>
+                        
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Năm sinh</span>
+                                <span class="info-val">1992 • Nhâm Thân</span>
+                            </div>
+                        </div>
+                        <div class="info-divider"></div>
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-4 8-8 8-12a8 8 0 1 0-16 0c0 4 4 8 8 12z"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Chủ đề</span>
+                                <span class="info-val">Tài Lộc</span>
+                            </div>
+                        </div>
+                        <div class="info-divider"></div>
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Mã Linh Ấn</span>
+                                <span class="info-val">#0182</span>
+                            </div>
+                        </div>
+                        <div class="info-divider"></div>
+
+                        <div class="info-row">
+                            <div class="info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Ngày khai ấn</span>
+                                <span class="info-val">10.08.2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Khu vực giữ chỗ cho 3D (Đã chuyển model-viewer lên global) -->
+                <!-- Div này có tác dụng đẩy nội dung bên dưới xuống, chừa không gian cho model 3D toàn cục (global-model-container) hiển thị ở giữa trang. -->
+                <div style="width: 100%; height: 450px; display: flex; justify-content: center; align-items: center; position: relative; z-index: 10;">
+                </div>
+                
+                <p class="bottom-text">Được tạo riêng cho<br>câu chuyện của Minh.</p>
+                
+                <div class="scroll-indicator">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E5B75A" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             MÀN HÌNH 3: Ý NGHĨA LINH ẤN
+             ========================================================= -->
+        <section class="page" id="page-3">
+            <div class="p3-content">
+                
+                <!-- Thanh điều hướng Top -->
+                <div class="p3-nav">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C49A45" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                    <div class="p3-nav-title">
+                        <span class="ornament">~</span>
+                        <span>Ý NGHĨA LINH ẤN</span>
+                        <span class="ornament">~</span>
+                    </div>
+                    <div style="width:24px"></div>
+                </div>
+
+                <!-- Tiêu đề & Cụm Khỉ 3D -->
+                <div class="p3-header">
+                    <!-- Giới hạn chiều rộng 55% để chừa không gian bên phải cho Khỉ 3D -->
+                    <div class="p3-header-text" style="width: 55%;">
+                        <h1 class="title-gold p3-title">TÀI LỘC</h1>
+                        <p class="p3-subtitle-italic">Không chỉ là có thêm.<br>Mà còn là biết đón nhận, gìn giữ và tạo nên giá trị.</p>
+                        <p class="p3-paragraph-small" style="margin-top: 15px;">Linh Ấn Tài Lộc mang theo một lời chúc về sự hanh thông trên hành trình phía trước — gặp được cơ hội phù hợp, giữ vững những điều đã gây dựng và từng bước tạo nên thành quả của riêng mình.</p>
+                    </div>
+                </div>
+
+                <!-- Box: Ba Dấu Ý Của Tài Lộc -->
+                <div class="p3-bordered-section">
+                    <div class="p3-divider-text">
+                        <span>BA DẤU Ý CỦA TÀI LỘC</span>
+                    </div>
+                    
+<!-- Lưới danh sách có đường kẻ sọc -->
+                    <div class="p3-timeline-list">
+                        <div class="p3-timeline-item">
+                            <div class="p3-timeline-icon">
+                                <div class="icon-circle-placeholder">
+                                    <img src="icon/cohoi.png" alt="Đón cơ hội" class="custom-timeline-icon">
+                                </div>
+                            </div>
+                            <div class="p3-timeline-text">
+                                <h3>ĐÓN CƠ HỘI</h3>
+                                <p>Tài Lộc bắt đầu từ những cánh cửa được mở ra đúng lúc — một cơ hội mới, một cuộc gặp gỡ ý nghĩa hay một lựa chọn đưa ta đến gần hơn với điều mình mong muốn.</p>
+                            </div>
+                        </div>
+                        <div class="p3-timeline-item">
+                            <div class="p3-timeline-icon">
+                                <div class="icon-circle-placeholder">
+                                    <img src="icon/giugiatri.png" alt="Giữ giá trị" class="custom-timeline-icon">
+                                </div>
+                            </div>
+                            <div class="p3-timeline-text">
+                                <h3>GIỮ GIÁ TRỊ</h3>
+                                <p>Sự đủ đầy không chỉ nằm ở những gì ta nhận được, mà còn ở khả năng trân trọng, vun đắp và gìn giữ những giá trị mình đã tạo nên.</p>
+                            </div>
+                        </div>
+                        <div class="p3-timeline-item">
+                            <div class="p3-timeline-icon">
+                                <div class="icon-circle-placeholder">
+                                    <img src="icon/gatthanhqua.png" alt="Gặt thành quả" class="custom-timeline-icon">
+                                </div>
+                            </div>
+                            <div class="p3-timeline-text">
+                                <h3>GẶT THÀNH QUẢ</h3>
+                                <p>Tài Lộc cũng là hình ảnh của thành quả — khi sự kiên trì, lựa chọn và nỗ lực theo thời gian dần trở thành những điều đáng tự hào.</p>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- Ý nghĩa phong thủy -->
+                <div class="p3-divider-text" style="margin-top: 40px;">
+                    <span>Ý NGHĨA PHONG THỦY</span>
+                </div>
+                
+                <h4 class="p3-red-subtitle">TỤ TÀI • GIỮ LỘC • HANH THÔNG</h4>
+                
+                <p class="p3-paragraph" style="text-align: center;">Trong tinh thần phong thủy Á Đông, Tài Lộc không chỉ gắn với của cải. Đó còn là hình ảnh của dòng chảy thuận lợi: cơ hội đến đúng lúc, thành quả được gìn giữ và những điều tốt đẹp có cơ hội tiếp tục sinh sôi. Bởi vậy, Linh Ấn Tài Lộc được tạo nên như một biểu tượng nhắc nhớ về sự đủ đầy — không phải chỉ ở những gì ta sở hữu, mà còn ở những giá trị ta xây dựng trên hành trình của mình.</p>
+
+                <!-- Box Dành Riêng (Bản Nâng Cấp Sang Trọng) -->
+                <div class="p3-special-box red-bordered" style="margin-top: 30px;">
+                    
+                    <div class="p3-box-content">
+                        <h3 class="box-title-gold">DẤU ẤN CỦA MÌNH</h3>
+                        <p class="p3-sub-info">MINH • NHÂM THÂN 1992<br>LINH ẤN TÀI LỘC • #0182</p>
+                        <p class="p3-box-text">Linh Ấn này mang tên Minh. Hình tượng linh vật tuổi Thân tạo nên dấu ấn năm sinh. Chủ đề Tài Lộc gửi gắm mong ước về một hành trình nhiều cơ hội và thành quả. Mã #0182 đánh dấu đây là Linh Ấn thuộc về riêng người sở hữu. Khi những chi tiết ấy cùng xuất hiện trên một vật phẩm, Linh Ấn không còn chỉ là một biểu tượng chung. Nó trở thành một dấu ấn mang câu chuyện của Minh.</p>
+                    </div>
+                </div>
+
+                <!-- Lời chúc -->
+                <div class="p3-divider-text" style="margin-top: 40px;">
+                    <span>LỜI CHÚC TỪ LINH ẤN</span>
+                </div>
+                <p class="p3-paragraph" style="text-align: center; margin-bottom: 25px;">Chúc Minh gặp phong thời cơ khi cần một bước tiến,<br>giữ được những giá trị mình đã dày công gây dựng,<br>và ngày càng có thêm nhiều điều đáng tự hào trên hành trình phía trước.</p>
+                
+                <div class="p3-big-wishes">
+                    <p>Tài đến từ cơ hội.</p>
+                    <p>Lộc ở lại bằng giá trị.</p>
+                    <p>Thành quả được tạo nên bởi chính bạn.</p>
+                </div>
+            </div>
+        </section>
+        <!-- =========================================================
+             MÀN HÌNH 4: CHI TIẾT CẤU TẠO (CALLOUTS)
+             ========================================================= -->
+        <!-- Màn hình 4 hiện đang được ẩn (display: none). Logic model 3D đã được xử lý toàn cục (global) thay vì dùng một bản sao riêng ở đây. -->
+        <section class="page" id="page-4" style="display: none;">
+            <div class="content p4-content">
+                
+                <!-- Tiêu đề -->
+                <div class="p4-header">
+                    <h2 class="p4-title-small">NHỮNG CHI TIẾT</h2>
+                    <h1 class="p4-title-gold">ĐƯỢC TẠO RIÊNG CHO BẠN</h1>
+                    <div class="p4-divider-ornament">
+                        <svg width="60" height="15" viewBox="0 0 60 15" fill="none" stroke="#C49A45" stroke-width="1"><path d="M0 7.5h20l5-5 10 10 5-5h20"/></svg>
+                    </div>
+                </div>
+
+                <!-- Lưới 6 ô chú thích 2 bên và Bản copy 3D ở giữa -->
+                <div class="p4-callout-grid">
+                    
+                    <!-- BÊN TRÁI -->
+                    <div class="callout-box left" style="grid-area: L1;">
+                        <div class="callout-icon">🐒</div>
+                        <h4>Linh vật tuổi Thân</h4>
+                        <p>Biểu tượng của thông minh, nhanh trí.</p>
+                    </div>
+                    
+                    <div class="callout-box left" style="grid-area: L2;">
+                        <div class="callout-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c4-4 8-8 8-12a8 8 0 1 0-16 0c0 4 4 8 8 12z"/></svg>
+                        </div>
+                        <h4>Chủ đề Tài Lộc</h4>
+                        <p>Thu hút may mắn, thịnh vượng.</p>
+                    </div>
+
+                    <div class="callout-box left" style="grid-area: L3;">
+                        <div class="callout-icon" style="font-size: 20px;">#</div>
+                        <h4>Mã #0182</h4>
+                        <p>Dấu ấn định danh duy nhất của bạn.</p>
+                    </div>
+
+                    <!-- CHÍNH GIỮA (BẢN COPY CỦA 3D MODEL) -->
+                    <div class="p4-center-model" style="grid-area: C;">
+                        <model-viewer
+                            src="3d/than.glb" 
+                            alt="Linh Ấn Tài Lộc"
+                            loading="lazy"
+                            camera-controls
+                            disable-zoom
+                            disable-pan
+                            min-camera-orbit="auto 90deg auto"
+                            max-camera-orbit="auto 90deg auto"
+                            auto-rotate
+                            rotation-per-second="15deg"
+                            environment-image="neutral"
+                            exposure="1.2"
+                            shadow-intensity="1.5"
+                            shadow-softness="1"
+                            style="width: 100%; height: 100%; outline: none;"
+                        ></model-viewer>
+                    </div>
+
+                    <!-- BÊN PHẢI -->
+                    <div class="callout-box right" style="grid-area: R1;">
+                        <div class="callout-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <h4>Tên người sở hữu</h4>
+                        <p>Khắc tên Minh, dấu ấn riêng biệt.</p>
+                    </div>
+
+                    <div class="callout-box right" style="grid-area: R2;">
+                        <div class="callout-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 15l2-6 10 0 2 6 0 2-14 0z"/></svg>
+                        </div>
+                        <h4>Bảo vật trên tay</h4>
+                        <p>Tượng trưng cho điều may mắn.</p>
+                    </div>
+
+                    <div class="callout-box right" style="grid-area: R3;">
+                        <div class="callout-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="14" width="16" height="4"/><rect x="6" y="10" width="12" height="4"/></svg>
+                        </div>
+                        <h4>Đế tượng</h4>
+                        <p>Thể hiện nền tảng vững vàng, bền bỉ.</p>
+                    </div>
+
+                </div>
+        </section>
+
+    <!-- =========================================================
+             MÀN HÌNH 5: LÁ BÀI THÔNG ĐIỆP & CTA
+             ========================================================= -->
+        <section class="page" id="page-5">
+            <div class="content p5-content">
+                
+                <div class="p4-header">
+                    <h1 class="p4-title-gold" style="font-size: 28px;">THÔNG ĐIỆP CỦA BẠN</h1>
+                    <div class="p4-divider-ornament">
+                        <svg width="60" height="15" viewBox="0 0 60 15" fill="none" stroke="#C49A45" stroke-width="1"><path d="M0 7.5h20l5-5 10 10 5-5h20"/></svg>
+                    </div>
+                </div>
+                
+                <!-- Lớp 1: Card Scene (Tạo không gian 3D và Animation xuất hiện) -->
+                <div class="card-scene" id="card-scene">
+                    <!-- Lớp 2: Card Wrapper (Hiệu ứng lắc lư Idle không ngừng) -->
+                    <div class="card-wrapper" id="card-wrapper">
+                        <!-- Lớp 3: Thân lá bài (Dùng để lật 180 độ) -->
+                        <div class="card" id="the-card">
+                            
+                            <!-- MẶT TRƯỚC -->
+                            <div class="card-face card-front">
+                                <img src="img/bai1.png" alt="Mặt trước lá bài" class="card-img">
+                            </div>
+                            
+                            <!-- MẶT SAU -->
+                            <div class="card-face card-back">
+                                <img src="img/bai2.png" alt="Mặt sau lá bài" class="card-img">
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút CTA (Call to Action) chính, chỉ hiện khi lá bài đã sẵn sàng -->
+                <div class="p5-action-box">
+                    <button class="btn-gold" id="btn-gieo-duyen">GIEO DUYÊN</button>
+                </div>
+                <div class="scroll-indicator" style="margin-top: 30px;">
+                    <p style="font-size: 12px; color: #a0958a; margin-bottom: 5px;">Chạm vào lá bài để lật mở</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E5B75A" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
