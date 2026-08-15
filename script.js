@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành h
             
             // Di chuyển theo chiều dọc: từ giữa (55% vh) bay lên trên (22% vh)
             const startTopPx = 0.55 * vh;
-            const targetTopPx = 0.25 * vh; // Tăng từ 0.22 lên 0.25 để model dịch xuống một chút
+            const targetTopPx = 0.28 * vh; // Tăng từ 0.25 lên 0.28 để model dịch xuống một chút
             
             // Tính toán vị trí top, trừ đi độ cuộn của trang 3 để model "bám" vào nội dung
             // khi người dùng bắt đầu cuộn nội dung ở trang 3.
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành h
             const progress = (scrollTop - (vh * 2)) / vh; 
             
             // Vị trí cố định trên cùng nếu không có cuộn nội bộ
-            const fixedTopPx = 0.25 * vh; // Tăng từ 0.22 lên 0.25 để model dịch xuống một chút
+            const fixedTopPx = 0.28 * vh; // Tăng từ 0.25 lên 0.28 để model dịch xuống một chút
             
             // Logic "dính" và "bay đi":
             // 1. `fixedTopPx - page3ScrollTop`: Giữ cho model bám vào góc trên khi người dùng cuộn nội dung trang 3.
