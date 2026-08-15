@@ -41,6 +41,39 @@ body {
 }
 
 /* =========================================================
+   LOADING SCREEN
+   ========================================================= */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0806;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(196, 154, 69, 0.3);
+    border-top-color: #E8C875;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+/* =========================================================
    2. BỐ CỤC CHÍNH (SNAP SCROLL & PAGES)
    ========================================================= */
 .snap-container { /* Container chính cho phép cuộn dọc */
@@ -402,6 +435,12 @@ button.badge-gold:active {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(10px); }
     60% { transform: translateY(5px); }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* =========================================================

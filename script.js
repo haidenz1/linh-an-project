@@ -17,6 +17,36 @@
 
 document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành hàm async
     
+    // --- LOGIC MÀN HÌNH TẢI (LOADING SCREEN) ---
+    const loadingScreen = document.getElementById('loading-screen');
+    const modelViewer = document.querySelector('model-viewer');
+
+    if (loadingScreen && modelViewer) {
+        // Ẩn màn hình tải khi model 3D đã sẵn sàng
+        modelViewer.addEventListener('load', () => {
+            console.log('3D model loaded.');
+            loadingScreen.classList.add('hidden');
+            // Xóa khỏi DOM sau khi hiệu ứng mờ kết thúc để giải phóng tài nguyên
+            setTimeout(() => {
+                if (loadingScreen.parentNode) {
+                    loadingScreen.parentNode.removeChild(loadingScreen);
+                }
+            }, 500); // Thời gian phải khớp với transition trong CSS
+        });
+
+        // Thêm một phương án dự phòng: ẩn màn hình tải sau một khoảng thời gian nhất định
+        // phòng trường hợp sự kiện 'load' không được kích hoạt.
+        setTimeout(() => {
+            if (!loadingScreen.classList.contains('hidden')) {
+                console.warn('Fallback: Hiding loading screen due to timeout.');
+                loadingScreen.classList.add('hidden');
+                setTimeout(() => {
+                    if (loadingScreen.parentNode) loadingScreen.parentNode.removeChild(loadingScreen);
+                }, 500);
+            }
+        }, 8000); // 8 giây
+    }
+
     // ==========================================
     // 0. TẢI DỮ LIỆU ĐỘNG TỪ LOCALSTORAGE VÀ KÍCH HOẠT CHẾ ĐỘ ADMIN (NẾU CÓ)
     // ==========================================
@@ -186,7 +216,7 @@ document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành h
             
             // Di chuyển theo chiều dọc: từ giữa (55% vh) bay lên trên (22% vh)
             const startTopPx = 0.55 * vh;
-            const targetTopPx = 0.22 * vh; 
+            const targetTopPx = 0.25 * vh; // Tăng từ 0.22 lên 0.25 để model dịch xuống một chút
             
             // Tính toán vị trí top, trừ đi độ cuộn của trang 3 để model "bám" vào nội dung
             // khi người dùng bắt đầu cuộn nội dung ở trang 3.
@@ -205,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành h
             const progress = (scrollTop - (vh * 2)) / vh; 
             
             // Vị trí cố định trên cùng nếu không có cuộn nội bộ
-            const fixedTopPx = 0.22 * vh; 
+            const fixedTopPx = 0.25 * vh; // Tăng từ 0.22 lên 0.25 để model dịch xuống một chút
             
             // Logic "dính" và "bay đi":
             // 1. `fixedTopPx - page3ScrollTop`: Giữ cho model bám vào góc trên khi người dùng cuộn nội dung trang 3.
