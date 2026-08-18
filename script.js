@@ -15,40 +15,50 @@
  *    - IntersectionObserver: Kích hoạt animation khi cuộn vào/ra khỏi trang 5.
  */
 
-document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành hàm async
+/**
+ * @file script.js
+ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAFoOmGl4EzEzaVYYqf6v21N8ZByLWAM3c",
+    authDomain: "linhanthanhlong.firebaseapp.com",
+    projectId: "linhanthanhlong",
+    storageBucket: "linhanthanhlong.firebasestorage.app",
+    messagingSenderId: "258822651286",
+    appId: "1:258822651286:web:8968e99f2bcacd1d96b1b7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.addEventListener('DOMContentLoaded', async () => { 
     
     // --- LOGIC MÀN HÌNH TẢI (LOADING SCREEN) ---
     const loadingScreen = document.getElementById('loading-screen');
     const modelViewer = document.querySelector('model-viewer');
 
     if (loadingScreen && modelViewer) {
-        // Ẩn màn hình tải khi model 3D đã sẵn sàng
         modelViewer.addEventListener('load', () => {
-            console.log('3D model loaded.');
             loadingScreen.classList.add('hidden');
-            // Xóa khỏi DOM sau khi hiệu ứng mờ kết thúc để giải phóng tài nguyên
             setTimeout(() => {
-                if (loadingScreen.parentNode) {
-                    loadingScreen.parentNode.removeChild(loadingScreen);
-                }
-            }, 500); // Thời gian phải khớp với transition trong CSS
+                if (loadingScreen.parentNode) loadingScreen.parentNode.removeChild(loadingScreen);
+            }, 500); 
         });
 
-        // Thêm một phương án dự phòng: ẩn màn hình tải sau một khoảng thời gian nhất định
-        // phòng trường hợp sự kiện 'load' không được kích hoạt.
         setTimeout(() => {
             if (!loadingScreen.classList.contains('hidden')) {
-                console.warn('Fallback: Hiding loading screen due to timeout.');
                 loadingScreen.classList.add('hidden');
                 setTimeout(() => {
                     if (loadingScreen.parentNode) loadingScreen.parentNode.removeChild(loadingScreen);
                 }, 500);
             }
-        }, 8000); // 8 giây
+        }, 8000); 
     }
 
     // ==========================================
-    // 0. TẢI DỮ LIỆU ĐỘNG TỪ LOCALSTORAGE VÀ KÍCH HOẠT CHẾ ĐỘ ADMIN (NẾU CÓ)
+    // 0. TẢI DỮ LIỆU ĐỘNG TỪ FIREBASE
     // ==========================================
     async function loadContent() {
         try {
@@ -57,40 +67,33 @@ document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành h
             const editSlug = params.get('edit');
             const slug = pageSlug || editSlug;
             
-            // Nếu đang ở chế độ chỉnh sửa, tự động tải script admin.js
+            // Nếu là trang chỉnh sửa, tải admin.js với type = 'module'
             if (editSlug) {
-                console.log(`Kích hoạt chế độ chỉnh sửa cho: ${editSlug}`);
                 const adminScript = document.createElement('script');
+                adminScript.type = 'module'; // BẮT BUỘC ĐỂ NHẬN FIREBASE
                 adminScript.src = 'admin.js';
                 document.body.appendChild(adminScript);
             }
 
-            // Nếu không có slug nào, đây là trang chủ bình thường, không cần tải dữ liệu
-            if (!slug) {
-                console.log('Không có slug, bỏ qua việc tải nội dung động.');
+            if (!slug) return;
+
+            // Kéo dữ liệu từ Firebase thay vì localStorage
+            const docRef = doc(db, "pages", slug);
+            const docSnap = await getDoc(docRef);
+
+            if (!docSnap.exists()) {
+                console.log(`Không tìm thấy dữ liệu cho trang '${slug}' trên máy chủ.`);
                 return;
             }
 
-            // Lấy dữ liệu từ localStorage
-            const jsonData = localStorage.getItem(`linhan_page_${slug}`);
-
-            // Nếu không có dữ liệu (trang mới hoặc slug sai), không làm gì cả
-            if (!jsonData) {
-                if (pageSlug) { // Chỉ báo lỗi nếu đang xem trang công khai mà không có dữ liệu
-                     console.error(`Không tìm thấy dữ liệu cho trang '${slug}' trong localStorage.`);
-                } else {
-                    console.log(`Bắt đầu chỉnh sửa trang mới: '${slug}'.`);
-                }
-                return;
-            }
-            const data = JSON.parse(jsonData);
+            // Lấy object nội dung từ trường 'content'
+            const data = docSnap.data().content;
+            if (!data) return; // Nếu trang mới tinh, chưa chỉnh sửa thì bỏ qua
 
             // Điền nội dung văn bản
             for (const key in data) {
                 const elements = document.querySelectorAll(`[data-editable="${key}"]`);
-                elements.forEach(el => {
-                    el.innerHTML = data[key];
-                });
+                elements.forEach(el => { el.innerHTML = data[key]; });
             }
 
             // Điền URL hình ảnh
@@ -102,14 +105,12 @@ document.addEventListener('DOMContentLoaded', async () => { // Chuyển thành h
                 }
             });
 
-            console.log(`Nội dung cho "${slug}" đã được tải thành công.`);
         } catch (error) {
-            console.error('Lỗi khi tải nội dung động:', error);
+            console.error('Lỗi khi tải nội dung động từ Firebase:', error);
         }
     }
 
-    await loadContent(); // Chờ nội dung tải xong rồi mới chạy các script khác
-
+    await loadContent();
     // ==========================================
     // 1. KHAI BÁO BIẾN & LẤY DOM ELEMENTS
     // ==========================================
