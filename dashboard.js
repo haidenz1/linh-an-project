@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
             pageItem.innerHTML = `
                 <span class="page-item-name">${slug}</span>
                 <div class="page-item-actions">
-                    <a href="../index.html?page=${slug}" target="_blank">Xem trang</a>
-                    <a href="../index.html?edit=${slug}" target="_blank">Chỉnh sửa</a>
+                    <a href="./index.html?page=${slug}" target="_blank">Xem trang</a>
+                    <a href="./index.html?edit=${slug}" target="_blank">Chỉnh sửa</a>
                     <button class="delete-btn" data-slug="${slug}">Xóa</button>
                 </div>
             `;
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // Chuyển hướng và tải lại danh sách
-                window.open(`../index.html?edit=${trimmedSlug}`, '_blank');
+                window.open(`./index.html?edit=${trimmedSlug}`, '_blank');
                 loadPages();
 
             } catch (error) {
